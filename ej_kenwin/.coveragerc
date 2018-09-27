@@ -1,0 +1,3 @@
+[run]
+source = ej_kenwin
+omit = ej_kenwin/test*

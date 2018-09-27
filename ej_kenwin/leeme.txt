@@ -1,0 +1,81 @@
+Pasos a seguir:
+
+crear el proyecton con
+	pyramid-cookiecutter-alchemy
+
+	cookiecutter gh:Pylons/pyramid-cookiecutter-starter --checkout 1.9-branch
+
+Change directory into your newly created project.
+    cd ej_kenwin
+
+Create a Python virtual environment.
+    python3 -m venv env
+
+Upgrade packaging tools.
+    env/bin/pip install --upgrade pip setuptools
+
+Install the project in editable mode with its testing requirements.
+    env/bin/pip install -e ".[testing]"
+
+Configure the database:
+    env/bin/initialize_ej_kenwin_db development.ini
+
+Run your project's tests.
+    env/bin/pytest
+
+Run your project.
+    env/bin/pserve development.ini
+
+
+a este punto ya esta montado el servidor en http://localhost:6543
+
+
+agrego una ruta nueva al routes.py
+    config.add_route('home_example', '/home')
+
+cree una view home.py
+
+cree el template home.jinja2 y su estructura
+cree el home.css y su estructura
+cree el home.js
+
+
+
+
+
+CREATE USER kenwin WITH PASSWORD 'kenwin';
+
+CREATE DATABASE kenwin_db OWNER kenwin;
+
+
+cambiar el development.ini en sqlalchemy.url = postgresql:///kenwin_db
+
+
+agregar al setup.py
+
+
+requires = [
+    ....
+    'psycopg2',
+    'alembic',
+]
+
+y correr nuvamente env/bin/pip install -e .
+para instalar las nuevas dependencias
+
+
+ejectar
+    alembic init alembic
+esto maneja las migraciones
+
+
+cambiar el sqlalchemy.url por sqlalchemy.url = postgresql:///kenwin_db
+en alembic.ini
+
+
+
+incluir esto
+from ej_kenwin.models.meta import Base
+target_metadata = Base.metadata
+
+en el alembic.env
